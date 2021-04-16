@@ -1,5 +1,6 @@
 package com.example.hakimssuperserver.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -20,16 +21,19 @@ import java.util.Date;
 @Entity
 public class OrderDetails {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long ordersID;
     private Long productID;
     private double productPrice;
 
     @OneToOne
-    @JoinColumn(name="productID", insertable = false, updatable = false)
+    @JoinColumn(name = "productID", insertable = false, updatable = false)
     Product product;
-
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ordersid", insertable = false, updatable = false, referencedColumnName = "id")
+    @JsonBackReference
+    private Orders orders;
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date")
