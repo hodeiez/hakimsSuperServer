@@ -14,6 +14,7 @@ import java.util.Optional;
  * Project: hakimsSuperServer
  * Copyright: MIT
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/product")
 public class ProductController {

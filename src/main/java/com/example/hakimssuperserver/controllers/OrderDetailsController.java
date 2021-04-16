@@ -1,7 +1,6 @@
 package com.example.hakimssuperserver.controllers;
 
 import com.example.hakimssuperserver.models.OrderDetails;
-import com.example.hakimssuperserver.models.Product;
 import com.example.hakimssuperserver.repositories.OrderDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
