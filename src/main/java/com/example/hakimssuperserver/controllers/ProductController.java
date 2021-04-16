@@ -5,6 +5,8 @@ import com.example.hakimssuperserver.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 /**
  * Created by Hodei Eceiza
  * Date: 4/15/2021
@@ -25,6 +27,10 @@ public class ProductController {
     @ResponseBody
     public Iterable<Product> getByCategoryId(@RequestParam Long id){
         return productRepository.findAllByCategoryId(id);
+    }
+    @GetMapping("/getbyid/{id}")
+    public Optional<Product> getProductById(@PathVariable Long id){
+        return productRepository.findById(id);
     }
 //adds a product with a post request and response with the object created
     @PostMapping(value="/add", consumes="application/json",produces="application/json")
