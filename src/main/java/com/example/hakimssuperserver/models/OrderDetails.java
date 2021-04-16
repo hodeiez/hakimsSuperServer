@@ -27,6 +27,7 @@ public class OrderDetails {
     private double productPrice;
 
 
+
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date")

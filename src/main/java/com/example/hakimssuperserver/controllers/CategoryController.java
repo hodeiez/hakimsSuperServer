@@ -2,7 +2,6 @@ package com.example.hakimssuperserver.controllers;
 
 import com.example.hakimssuperserver.models.Category;
 
-import com.example.hakimssuperserver.models.Product;
 import com.example.hakimssuperserver.repositories.CategoryRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
