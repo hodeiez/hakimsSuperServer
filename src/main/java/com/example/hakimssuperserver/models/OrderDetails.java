@@ -26,6 +26,9 @@ public class OrderDetails {
     private Long productID;
     private double productPrice;
 
+    @OneToOne
+    @JoinColumn(name="productID", insertable = false, updatable = false)
+    Product product;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)

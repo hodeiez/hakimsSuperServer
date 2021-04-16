@@ -22,6 +22,7 @@ public class Product {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     private String title;
+    @Column(length = 1200)
     private String description;
     private String image;
     private double price;
