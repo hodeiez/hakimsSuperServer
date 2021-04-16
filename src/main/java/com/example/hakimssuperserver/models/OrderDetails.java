@@ -22,7 +22,6 @@ public class OrderDetails {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-
     private Long ordersID;
     private Long productID;
     private double productPrice;

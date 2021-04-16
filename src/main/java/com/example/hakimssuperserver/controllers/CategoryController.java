@@ -2,6 +2,7 @@ package com.example.hakimssuperserver.controllers;
 
 import com.example.hakimssuperserver.models.Category;
 
+import com.example.hakimssuperserver.models.Product;
 import com.example.hakimssuperserver.repositories.CategoryRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
  * Project: hakimsSuperServer
  * Copyright: MIT
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/category")
 public class CategoryController {
@@ -22,6 +24,11 @@ public class CategoryController {
 
     @RequestMapping("")
     public Iterable<Category> showAll(){return categoryRepository.findAll();}
+
+    @GetMapping("/all")
+    @ResponseBody
+    public Iterable<Category> getAllCategories(){
+        return categoryRepository.findAll();}
 
     @PostMapping(value="/add", consumes="application/json",produces="application/json")
     @ResponseBody
