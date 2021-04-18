@@ -2,17 +2,12 @@ package com.example.hakimssuperserver.controllers;
 
 import com.example.hakimssuperserver.models.OrderDetails;
 import com.example.hakimssuperserver.models.Orders;
-import com.example.hakimssuperserver.models.Product;
-import com.example.hakimssuperserver.repositories.OrderDetailsRepository;
 import com.example.hakimssuperserver.repositories.OrdersRepository;
-import com.example.hakimssuperserver.repositories.ProductRepository;
+import com.example.hakimssuperserver.services.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Created by Hodei Eceiza
@@ -28,10 +23,7 @@ public class OrdersController {
     @Autowired
     public OrdersRepository ordersRepository;
     @Autowired
-    public OrderDetailsRepository orderDetailsRepository;
-    @Autowired
-    public ProductRepository productRepository;
-
+    public OrdersService ordersService;
     @GetMapping("/all")
     @ResponseBody
     public Iterable<Orders> getAll(){
@@ -44,20 +36,8 @@ public class OrdersController {
     @PostMapping(value="/add/{customerId}", consumes="application/json",produces="application/json")
     @ResponseBody
     public Orders addOrder(@RequestBody List<OrderDetails> orderDetails, @PathVariable Long customerId){
-        Orders order=new Orders();
-        order.setCustomerID(customerId);
-        Date today=new Date();
-        order.setOrderDate(today);
-        Orders savedOrder=ordersRepository.save(order);
+    return ordersService.addOrder(orderDetails,customerId);
 
-        for(OrderDetails details : orderDetails ){
-            Long productID=details.getProductID();
-            Optional<Product> product=productRepository.findById(productID);
-            details.setProduct(product.get());
-            details.setOrdersID(savedOrder.getId());
-            orderDetailsRepository.save(details);
-        }
-        return savedOrder;
     }
 
 }

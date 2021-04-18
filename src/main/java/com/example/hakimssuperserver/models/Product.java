@@ -1,9 +1,7 @@
 package com.example.hakimssuperserver.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
-
 
 import javax.persistence.*;
 
