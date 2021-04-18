@@ -26,14 +26,10 @@ public class Product {
     private String description;
     private String image;
     private double price;
-/*
+
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="categoryId", referencedColumnName="id")
-    @JsonBackReference
-
- */
-    @OneToOne
-    @JoinColumn(name="categoryId")
+  //  @JsonBackReference
     private Category category;
 
     public Product(Long id, String title, String description, String image, double price, Category category) {
