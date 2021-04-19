@@ -4,6 +4,8 @@ import com.example.hakimssuperserver.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * Created by Lisa Ramel
  * Date: 2021-04-16
@@ -42,5 +44,16 @@ public class CustomerController {
         return customerRepository.save(customer);
     }
 
+
+    @RequestMapping("/checkemail/{email}")
+    public boolean availableEmail(@PathVariable String email){
+        Iterable<Customer> names = getCustomerByEmail(email);
+        if(names.spliterator().getExactSizeIfKnown() > 0 ){
+            return false;
+        } else {
+            return true;
+        }
+
+    }
 
 }
