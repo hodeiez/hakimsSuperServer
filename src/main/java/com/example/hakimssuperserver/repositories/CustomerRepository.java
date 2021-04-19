@@ -4,6 +4,8 @@ import com.example.hakimssuperserver.models.Customer;
 
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
+
 /**
  * Created by Hodei Eceiza
  * Date: 4/15/2021
@@ -12,4 +14,6 @@ import org.springframework.data.repository.CrudRepository;
  * Copyright: MIT
  */
 public interface CustomerRepository extends CrudRepository<Customer,Long> {
+
+    //List<Customer>findById(Long id);
 }
