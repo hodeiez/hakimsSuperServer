@@ -24,14 +24,23 @@ public class CustomerController {
         return customerRepository.findAll();
     }
 
-    /*@GetMapping
+    @ResponseBody
+    @GetMapping("/id")
     public Iterable<Customer> getCustomerById(@RequestParam Long id){
-        return customerRepository.findById(id);
-    }*/
+        return customerRepository.findAllById(id);
+    }
+
+    @ResponseBody
+    @GetMapping("/email")
+    public Iterable<Customer> getCustomerByEmail(@RequestParam String email){
+        return customerRepository.findAllByEmail(email);
+    }
 
     @PostMapping(value="/add", consumes="application/json",produces="application/json")
     @ResponseBody
     public Customer addCustomer(@RequestBody Customer customer){
         return customerRepository.save(customer);
     }
+
+
 }

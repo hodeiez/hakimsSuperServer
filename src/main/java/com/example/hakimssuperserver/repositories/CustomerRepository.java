@@ -15,5 +15,6 @@ import java.util.List;
  */
 public interface CustomerRepository extends CrudRepository<Customer,Long> {
 
-    //List<Customer>findById(Long id);
+    List<Customer>findAllById(Long id);
+    List<Customer>findAllByEmail(String email);
 }
