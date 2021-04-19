@@ -1,6 +1,4 @@
 package com.example.hakimssuperserver.controllers;
-
-import com.example.hakimssuperserver.models.Category;
 import com.example.hakimssuperserver.models.Customer;
 import com.example.hakimssuperserver.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
  * Project: hakimsSuperServer
  * Copywrite: MIT
  */
-
+@CrossOrigin
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
@@ -36,7 +34,4 @@ public class CustomerController {
     public Customer addCustomer(@RequestBody Customer customer){
         return customerRepository.save(customer);
     }
-
-
-
 }
