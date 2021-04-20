@@ -44,16 +44,35 @@ public class CustomerController {
         return customerRepository.save(customer);
     }
 
+    @PostMapping(value="/tryadd", consumes="application/json",produces="application/json")
+    @ResponseBody
+    public Customer newCustomer(@RequestBody Customer customer){
+        if(availableEmail(customer.getEmail())){
+            customerRepository.save(customer);
+            return customer;
+        } else {
+            return new Customer();
+        }
 
-    @RequestMapping("/checkemail/{email}")
-    public boolean availableEmail(@PathVariable String email){
+    }
+
+    public boolean availableEmail(String email){
         Iterable<Customer> names = getCustomerByEmail(email);
         if(names.spliterator().getExactSizeIfKnown() > 0 ){
             return false;
         } else {
             return true;
         }
+    }
 
+    @RequestMapping("/checkemail/{email}")
+    public boolean availableEmailCheck(@PathVariable String email){
+        Iterable<Customer> names = getCustomerByEmail(email);
+        if(names.spliterator().getExactSizeIfKnown() > 0 ){
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @RequestMapping("/checkcustomer/{email}/{password}")
