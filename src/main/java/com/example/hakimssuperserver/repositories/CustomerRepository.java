@@ -2,8 +2,9 @@ package com.example.hakimssuperserver.repositories;
 
 import com.example.hakimssuperserver.models.Customer;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
+
+import java.util.List;
 
 /**
  * Created by Hodei Eceiza
@@ -12,5 +13,9 @@ import org.springframework.data.repository.CrudRepository;
  * Project: hakimsSuperServer
  * Copyright: MIT
  */
-public interface CustomerRepository extends JpaRepository<Customer,Long> {
+public interface CustomerRepository extends CrudRepository<Customer,Long> {
+
+    List<Customer>findAllById(Long id);
+    List<Customer>findAllByEmail(String email);
+    List<Customer>findAllByPassword(String email);
 }
