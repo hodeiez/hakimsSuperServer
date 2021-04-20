@@ -2,6 +2,7 @@ package com.example.hakimssuperserver.repositories;
 
 import com.example.hakimssuperserver.models.OrderDetails;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -13,6 +14,6 @@ import java.util.List;
  * Project: hakimsSuperServer
  * Copyright: MIT
  */
-public interface OrderDetailsRepository extends CrudRepository<OrderDetails,Long> {
+public interface OrderDetailsRepository extends JpaRepository<OrderDetails,Long> {
 List<OrderDetails> findAllByOrdersID(Long id);
 }

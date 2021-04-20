@@ -1,9 +1,7 @@
 package com.example.hakimssuperserver.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
-
 
 import javax.persistence.*;
 
@@ -22,18 +20,15 @@ public class Product {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     private String title;
-    @Column(length = 1200)
+    @Column(columnDefinition = "TEXT")
     private String description;
+    @Column(columnDefinition = "TEXT")
     private String image;
     private double price;
-/*
+
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="categoryId", referencedColumnName="id")
-    @JsonBackReference
-
- */
-    @OneToOne
-    @JoinColumn(name="categoryId")
+  //  @JsonBackReference
     private Category category;
 
     public Product(Long id, String title, String description, String image, double price, Category category) {
