@@ -26,8 +26,8 @@ public class Product {
     private String image;
     private double price;
 
-    @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="categoryId", referencedColumnName="id")
+    @ManyToOne()//removed cascade=CascadeType.ALL so we can save a product without given id
+    @JoinColumn(name="category_id", referencedColumnName="id")
   //  @JsonBackReference
     private Category category;
 
