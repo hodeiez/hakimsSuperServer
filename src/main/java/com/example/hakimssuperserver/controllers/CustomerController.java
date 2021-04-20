@@ -56,4 +56,15 @@ public class CustomerController {
 
     }
 
+    @RequestMapping("/checkcustomer/{email}/{password}")
+    public Customer availableCustomer(@PathVariable String email, @PathVariable String password){
+        Iterable<Customer> name = getCustomerByEmail(email);
+        for (Customer c : name){
+            if(c.getEmail().equals(email) && c.getPassword().equals(password)){
+                return c;
+            }
+        }
+        return null;
+    }
+
 }
