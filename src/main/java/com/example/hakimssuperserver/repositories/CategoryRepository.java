@@ -12,4 +12,5 @@ import org.springframework.data.repository.CrudRepository;
  * Copyright: MIT
  */
 public interface CategoryRepository extends JpaRepository<Category,Long> {
+    Category findCategoryById(Long id);
 }

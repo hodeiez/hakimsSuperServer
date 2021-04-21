@@ -25,8 +25,11 @@ public class Orders {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     private Date orderDate;
-    private Long customerID;
-
+    //private Long customerID;
+    @ManyToOne()//removed cascade=CascadeType.ALL so we can save a product without given id
+    @JoinColumn(name="customer_id", referencedColumnName="id")
+    //  @JsonBackReference
+    private Customer customer;
     @OneToMany(mappedBy="orders")
     @JsonManagedReference
     private List<OrderDetails> orderDetails;

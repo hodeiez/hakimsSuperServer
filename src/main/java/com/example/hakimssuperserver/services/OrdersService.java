@@ -1,5 +1,6 @@
 package com.example.hakimssuperserver.services;
 
+import com.example.hakimssuperserver.models.Customer;
 import com.example.hakimssuperserver.models.OrderDetails;
 import com.example.hakimssuperserver.models.Orders;
 import com.example.hakimssuperserver.models.Product;
@@ -32,7 +33,12 @@ public class OrdersService {
 
     public Orders addOrder( List<OrderDetails> orderDetails,  Long customerId){
         Orders order=new Orders();
-        order.setCustomerID(customerId);
+        //order.setCustomerID(customerId); //we will swap this for
+
+        Customer c=new Customer();
+        c.setId(customerId);
+        order.setCustomer(c);
+
         Date today=new Date();
         order.setOrderDate(today);
         Orders savedOrder=ordersRepository.save(order);

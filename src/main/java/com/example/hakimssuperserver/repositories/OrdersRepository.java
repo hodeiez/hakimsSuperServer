@@ -1,9 +1,12 @@
 package com.example.hakimssuperserver.repositories;
 
+import com.example.hakimssuperserver.models.Customer;
 import com.example.hakimssuperserver.models.Orders;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
+
+import java.util.List;
 
 /**
  * Created by Hodei Eceiza
@@ -13,4 +16,5 @@ import org.springframework.data.repository.CrudRepository;
  * Copyright: MIT
  */
 public interface OrdersRepository extends JpaRepository<Orders,Long> {
+    List<Orders> findAllByCustomer(Customer customer);
 }

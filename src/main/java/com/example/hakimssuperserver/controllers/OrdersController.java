@@ -1,5 +1,6 @@
 package com.example.hakimssuperserver.controllers;
 
+import com.example.hakimssuperserver.models.Customer;
 import com.example.hakimssuperserver.models.OrderDetails;
 import com.example.hakimssuperserver.models.Orders;
 import com.example.hakimssuperserver.repositories.OrdersRepository;
@@ -37,6 +38,12 @@ public class OrdersController {
     @ResponseBody
     public Orders addOrder(@RequestBody List<OrderDetails> orderDetails, @PathVariable Long customerId){
     return ordersService.addOrder(orderDetails,customerId);
+
+    }
+    @PostMapping(value="/getbycustomer", consumes="application/json",produces="application/json")
+    @ResponseBody
+    public List<Orders>getByCustomer(@RequestBody Customer customer){
+        return ordersRepository.findAllByCustomer(customer);
 
     }
 
