@@ -85,5 +85,13 @@ public class CustomerController {
         }
         return null;
     }
-
+    @PostMapping(value="/update", consumes="application/json",produces="application/json")
+    @ResponseBody
+    public Customer updateCustomer(@RequestBody Customer customer){
+        Customer savedCustomer=customerRepository.findCustomerByEmail(customer.getEmail());
+        customer.setId(savedCustomer.getId());
+        customer.setCreateDate(savedCustomer.getCreateDate());
+        customer.setPassword(savedCustomer.getPassword());
+        return customerRepository.save(customer);
+    }
 }
