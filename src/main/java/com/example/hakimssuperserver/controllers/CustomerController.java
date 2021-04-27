@@ -88,10 +88,10 @@ public class CustomerController {
     @PostMapping(value="/update", consumes="application/json",produces="application/json")
     @ResponseBody
     public Customer updateCustomer(@RequestBody Customer customer){
-        Customer savedCustomer=customerRepository.findById(customer.getId()).get();
+        Customer savedCustomer=customerRepository.findCustomerByEmail(customer.getEmail());
+        customer.setId(savedCustomer.getId());
         customer.setCreateDate(savedCustomer.getCreateDate());
         customer.setPassword(savedCustomer.getPassword());
-        customer.setEmail(savedCustomer.getEmail());
         return customerRepository.save(customer);
     }
 }

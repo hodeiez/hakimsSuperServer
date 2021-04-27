@@ -24,6 +24,7 @@ public class Customer {
     private Long id;
     private String firstname;
     private String lastname;
+    @Column(unique = true)
     private String email;
     private String telephone;
     private String address;
