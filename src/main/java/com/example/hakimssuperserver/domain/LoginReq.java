@@ -13,10 +13,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LoginReq {
+    @JsonProperty(value="username")
     private String email;
     private String password;
 
-    @JsonCreator
+    //@JsonCreator
     public LoginReq(String email, String password) {
         this.email = email;
         this.password = password;
