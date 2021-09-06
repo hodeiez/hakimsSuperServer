@@ -41,6 +41,7 @@ public class CustomerController {
     @PostMapping(value="/add", consumes="application/json",produces="application/json")
     @ResponseBody
     public Customer addCustomer(@RequestBody Customer customer){
+        //twillio-> skicka email. om det ar ok-> spara-...
         return customerRepository.save(customer);
     }
 

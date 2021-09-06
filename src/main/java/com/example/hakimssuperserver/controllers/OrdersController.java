@@ -37,6 +37,7 @@ public class OrdersController {
     @PostMapping(value="/add/{customerId}", consumes="application/json",produces="application/json")
     @ResponseBody
     public Orders addOrder(@RequestBody List<OrderDetails> orderDetails, @PathVariable Long customerId){
+        //payment gateway-> betäla. om (ok)=orderService.addorder(oredetails, customerID). om inteOk()-> badrequest
     return ordersService.addOrder(orderDetails,customerId);
 
     }
