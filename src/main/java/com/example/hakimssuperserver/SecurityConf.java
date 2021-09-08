@@ -1,8 +1,11 @@
 package com.example.hakimssuperserver;
 
+import com.example.hakimssuperserver.security.JWTAuthorizationFilter;
+import com.example.hakimssuperserver.security.JWTparser;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 
 /**
  * Created by Hodei Eceiza
@@ -13,9 +16,23 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  */
 @Configuration
 public class SecurityConf extends WebSecurityConfigurerAdapter {
+    private final JWTparser jwtParser;
+
+    public SecurityConf(JWTparser jwtParser) {
+        this.jwtParser = jwtParser;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        super.configure(http);
+        final JWTAuthorizationFilter jwtAuthorizationFilter = new JWTAuthorizationFilter(authenticationManager(), jwtParser);
+        http
+                .cors().disable()
+                .csrf().disable()
+                .authorizeRequests()
+                //.antMatchers("/**").permitAll()
+                .antMatchers("/customer").hasRole("ADMIN")
+                .and()
+                .addFilter(jwtAuthorizationFilter).sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 }

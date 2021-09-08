@@ -10,7 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.crypto.spec.SecretKeySpec;
-import java.time.Duration;
+
 
 /**
  * Created by Hodei Eceiza
@@ -21,11 +21,11 @@ import java.time.Duration;
  */
 @Configuration
 public class ApplicationConf {
-    @Value("${security.key}")
+    @Value("${security-key}")
     private String key;
 
 
-    @Value("${security.algorithm}")
+    @Value("${security-algorithm}")
     private String algorithm;
 
     @Bean
@@ -35,10 +35,12 @@ public class ApplicationConf {
     }
 
     @Bean
-    public JWTparser getJwtparser(){
+    public JWTparser jwtParser(){
         final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.forName(algorithm);
         final byte[] signingKeyBytes = Base64.encodeBase64(key.getBytes());
         return new JWTparser(new SecretKeySpec(signingKeyBytes, signatureAlgorithm.getJcaName()));
 
     }
+
+
 }

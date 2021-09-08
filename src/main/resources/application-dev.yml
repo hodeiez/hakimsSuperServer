@@ -9,7 +9,6 @@ spring:
     url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/${SPRING_DATABASE_NAME}
     username: ${SPRING_DATABASE_USERNAME}
     password: ${SPRING_DATABASE_PASSWORD}
-security:
-  key: ${SECURITY_SECRET_KEY}
-  algorithm: ${SECURITY_SECRET_ALGORITHM}
-  duration: ${SECURITY_SECRET_DURATION}
+
+security-key: ${SECURITY_SECRET_KEY}
+security-algorithm: ${SECURITY_SECRET_ALGORITHM}

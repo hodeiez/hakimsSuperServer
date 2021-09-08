@@ -9,6 +9,5 @@ spring:
     url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/${SPRING_DATABASE_NAME}
     username: ${SPRING_DATABASE_USERNAME}
     password: ${SPRING_DATABASE_PASSWORD}
-security:
-  key: "QeThWmZq4t7w!z%C*F)J@NcRfUjXn2r5u8x/A?D(G+KaPdSgVkYp3s6v9y$B&E)H"
-  algorithm: "HS512"
+security-key: QeThWmZq4t7w!z%C*F)J@NcRfUjXn2r5u8x/A?D(G+KaPdSgVkYp3s6v9y$B&E)H
+security-algorithm: HS512
