@@ -10,6 +10,5 @@ spring:
     username: ${SPRING_DATABASE_USERNAME}
     password: ${SPRING_DATABASE_PASSWORD}
 security:
-  key: ${SECURITY_SECRET_KEY}
-  algorithm: ${SECURITY_SECRET_ALGORITHM}
-  duration: ${SECURITY_SECRET_DURATION}
+  key: "QeThWmZq4t7w!z%C*F)J@NcRfUjXn2r5u8x/A?D(G+KaPdSgVkYp3s6v9y$B&E)H"
+  algorithm: "HS512"
