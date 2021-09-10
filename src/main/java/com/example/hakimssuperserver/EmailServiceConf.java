@@ -5,6 +5,7 @@ import com.example.hakimssuperserver.domain.EmailServiceClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -18,6 +19,7 @@ import org.springframework.web.client.RestTemplate;
 public class EmailServiceConf {
    // @Value("${super-email-service-address}")
    // private String emailServiceAddress;
+    @CrossOrigin
     @Bean
     public EmailServiceAdapter emailServiceAdapter(){
        return new EmailServiceClient(new RestTemplate(),"http://superemailservice.herokuapp.com/welcome");
