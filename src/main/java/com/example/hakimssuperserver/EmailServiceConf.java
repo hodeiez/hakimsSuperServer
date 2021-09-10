@@ -16,10 +16,10 @@ import org.springframework.web.client.RestTemplate;
  */
 @Configuration
 public class EmailServiceConf {
-    @Value("${super-email-service-address}")
-    private String emailServiceAddress;
+   // @Value("${super-email-service-address}")
+   // private String emailServiceAddress;
     @Bean
     public EmailServiceAdapter emailServiceAdapter(){
-       return new EmailServiceClient(new RestTemplate(),emailServiceAddress+"/welcome");
+       return new EmailServiceClient(new RestTemplate(),"http://superemailservice.herokuapp.com/welcome");
     }
 }
