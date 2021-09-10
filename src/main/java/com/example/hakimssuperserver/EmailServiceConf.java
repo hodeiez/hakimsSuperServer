@@ -16,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
  */
 @Configuration
 public class EmailServiceConf {
-    @Value("${super.email.service.address}")
+    @Value("${super-email-service-address}")
     private String emailServiceAddress;
     @Bean
     public EmailServiceAdapter emailServiceAdapter(){
