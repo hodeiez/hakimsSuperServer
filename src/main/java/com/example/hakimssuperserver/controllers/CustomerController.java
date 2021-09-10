@@ -1,4 +1,7 @@
 package com.example.hakimssuperserver.controllers;
+import com.example.hakimssuperserver.domain.EmailReq;
+import com.example.hakimssuperserver.domain.EmailServiceAdapter;
+import com.example.hakimssuperserver.domain.EmailServiceClient;
 import com.example.hakimssuperserver.models.Customer;
 import com.example.hakimssuperserver.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,8 @@ public class CustomerController {
 
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private EmailServiceAdapter emailServiceAdapter;
 
     @RequestMapping("")
     public Iterable<Customer> showAllCustomers(){
@@ -41,6 +46,7 @@ public class CustomerController {
     @PostMapping(value="/add", consumes="application/json",produces="application/json")
     @ResponseBody
     public Customer addCustomer(@RequestBody Customer customer){
+        emailServiceAdapter.sendEmailReq(new EmailReq(customer.getEmail(),"ss@ss",customer.getFirstname()));
         //twillio-> skicka email. om det ar ok-> spara-...
         return customerRepository.save(customer);
     }
