@@ -1,0 +1,12 @@
+spring:
+  jpa:
+    hibernate.ddl-auto: ${SPRING_HIBERNATE_DDL}
+    properties:
+      hibernate:
+        jdbc.lob.non_contextual_creation: true
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/${SPRING_DATABASE_NAME}
+    username: ${SPRING_DATABASE_USERNAME}
+    password: ${SPRING_DATABASE_PASSWORD}
+
+super.email.service.address: ${SUPER_EMAIL_SERVICE_ADDRESS}
