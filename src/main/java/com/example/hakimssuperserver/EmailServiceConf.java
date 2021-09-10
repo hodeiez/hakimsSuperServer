@@ -19,7 +19,6 @@ import org.springframework.web.client.RestTemplate;
 public class EmailServiceConf {
    // @Value("${super-email-service-address}")
    // private String emailServiceAddress;
-    @CrossOrigin
     @Bean
     public EmailServiceAdapter emailServiceAdapter(){
        return new EmailServiceClient(new RestTemplate(),"http://superemailservice.herokuapp.com/welcome");
