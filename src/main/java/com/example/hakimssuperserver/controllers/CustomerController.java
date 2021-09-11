@@ -42,10 +42,11 @@ public class CustomerController {
     public Iterable<Customer> getCustomerByEmail(@RequestParam String email){
         return customerRepository.findAllByEmail(email);
     }
-
+    //this request will be use for admin to add a customer
     @PostMapping(value="/add", consumes="application/json",produces="application/json")
     @ResponseBody
     public Customer addCustomer(@RequestBody Customer customer){
+        //TODO: decide if we want to  send the email to the user.
         emailServiceAdapter.sendEmailReq(new EmailReq(customer.getEmail(),"ss@ss",customer.getFirstname()));
         //twillio-> skicka email. om det ar ok-> spara-...
         return customerRepository.save(customer);
@@ -55,6 +56,7 @@ public class CustomerController {
     @ResponseBody
     public Customer newCustomer(@RequestBody Customer customer){
         if(availableEmail(customer.getEmail())){
+            emailServiceAdapter.sendEmailReq(new EmailReq(customer.getEmail(),"ss@ss",customer.getFirstname()));
             customerRepository.save(customer);
             return customer;
         } else {
