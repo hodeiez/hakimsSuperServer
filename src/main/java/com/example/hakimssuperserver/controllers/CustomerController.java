@@ -44,7 +44,7 @@ public class CustomerController {
         //twillio-> skicka email. om det ar ok-> spara-...
         return customerRepository.save(customer);
     }
-
+    //TODO: send to email,save user with encrypted password and send to supersecurity login Without encrypted password, check if has token and add ROLE, and return String(the token)
     @PostMapping(value="/tryadd", consumes="application/json",produces="application/json")
     @ResponseBody
     public Customer newCustomer(@RequestBody Customer customer){
@@ -75,7 +75,7 @@ public class CustomerController {
             return true;
         }
     }
-
+    //TODO: has to return the token as string
     @RequestMapping("/checkcustomer/{email}/{password}")
     public Customer availableCustomer(@PathVariable String email, @PathVariable String password){
         Iterable<Customer> name = getCustomerByEmail(email);
@@ -95,4 +95,6 @@ public class CustomerController {
         customer.setPassword(savedCustomer.getPassword());
         return customerRepository.save(customer);
     }
+
+    //TODO: new method getmyprofile , gets a JWTtoken and sends a customer.
 }
