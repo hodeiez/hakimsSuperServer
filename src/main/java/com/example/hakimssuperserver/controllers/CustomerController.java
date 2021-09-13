@@ -71,6 +71,7 @@ public class CustomerController {
         }
     }
 
+
     @RequestMapping("/checkemail/{email}")
     public boolean availableEmailCheck(@PathVariable String email){
         Iterable<Customer> names = getCustomerByEmail(email);
