@@ -12,3 +12,5 @@ spring:
 
 security-key: ${SECURITY_SECRET_KEY}
 security-algorithm: ${SECURITY_SECRET_ALGORITHM}
+
+super.email.service.address: ${SUPER_EMAIL_SERVICE_ADDRESS}
