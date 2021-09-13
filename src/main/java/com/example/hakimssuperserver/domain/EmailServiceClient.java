@@ -1,5 +1,7 @@
 package com.example.hakimssuperserver.domain;
 
+import org.apache.catalina.connector.Response;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,7 +24,12 @@ public class EmailServiceClient implements EmailServiceAdapter{
 
     @Override
     public ResponseEntity<String> sendEmailReq(EmailReq emailReq) {
-        return restTemplate.postForEntity(baseUrl,emailReq,String.class,String.class);
+        try{
+      ResponseEntity<String> response= restTemplate.postForEntity(baseUrl,emailReq,String.class,String.class);
+        return response;}
+        catch(Exception e){
+            return ResponseEntity.badRequest().body(HttpStatus.BAD_GATEWAY.toString());
+        }
     }
 
 
