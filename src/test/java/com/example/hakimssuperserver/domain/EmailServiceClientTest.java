@@ -42,7 +42,7 @@ class EmailServiceClientTest {
     @Test
     @DisplayName("Test using service in localhost. sent email is success")
     void sendMailSuccess() {
-        EmailReq email = new EmailReq("test@mail.com", "test2@mail.com", "test", name);
+        EmailReq email = new EmailReq("test@mail.com", "test2@mail.com", "test", "name");
 
 
         when(emailServiceMock.sendEmailReq(any(EmailReq.class))).thenReturn(ResponseEntity.ok().body("welcome email sent"));
@@ -55,7 +55,7 @@ class EmailServiceClientTest {
     @Test
     @DisplayName("Test using service in localhost. sent email is wrong")
     void sendEmailToWrongAddress() {
-        EmailReq email = new EmailReq("test@mail.com", "test2@mail.com", "test", name);
+        EmailReq email = new EmailReq("test@mail.com", "test2@mail.com", "test", "name");
         when(emailServiceMock.sendEmailReq(any(EmailReq.class))).thenReturn(ResponseEntity.ok().body(HttpStatus.BAD_GATEWAY.toString()));
 
         EmailServiceClient client = new EmailServiceClient(new RestTemplate(), "http://localhost:8082/**");
