@@ -1,13 +1,10 @@
 package com.example.hakimssuperserver.controllers;
 import com.example.hakimssuperserver.domain.EmailReq;
 import com.example.hakimssuperserver.domain.EmailServiceAdapter;
-import com.example.hakimssuperserver.domain.EmailServiceClient;
 import com.example.hakimssuperserver.models.Customer;
 import com.example.hakimssuperserver.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * Created by Lisa Ramel
@@ -47,7 +44,7 @@ public class CustomerController {
     @ResponseBody
     public Customer addCustomer(@RequestBody Customer customer){
         //TODO: decide if we want to  send the email to the user.
-        emailServiceAdapter.sendEmailReq(new EmailReq(customer.getEmail(),"ss@ss",customer.getFirstname()));
+        emailServiceAdapter.sendEmailReq(new EmailReq(customer.getEmail(),"ss@ss"," ", customer.getFirstname()));
         //twillio-> skicka email. om det ar ok-> spara-...
         return customerRepository.save(customer);
     }
@@ -56,7 +53,7 @@ public class CustomerController {
     @ResponseBody
     public Customer newCustomer(@RequestBody Customer customer){
         if(availableEmail(customer.getEmail())){
-            emailServiceAdapter.sendEmailReq(new EmailReq(customer.getEmail(),"ss@ss",customer.getFirstname()));
+            emailServiceAdapter.sendEmailReq(new EmailReq(customer.getEmail(),"ss@ss"," ", customer.getFirstname()));
             customerRepository.save(customer);
             return customer;
         } else {

@@ -11,13 +11,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.client.RestTemplate;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Created by Hodei Eceiza
@@ -44,7 +42,7 @@ class EmailServiceClientTest {
     @Test
     @DisplayName("Test using service in localhost. sent email is success")
     void sendMailSuccess() {
-        EmailReq email = new EmailReq("test@mail.com", "test2@mail.com", "test");
+        EmailReq email = new EmailReq("test@mail.com", "test2@mail.com", "test", name);
 
 
         when(emailServiceMock.sendEmailReq(any(EmailReq.class))).thenReturn(ResponseEntity.ok().body("welcome email sent"));
@@ -57,7 +55,7 @@ class EmailServiceClientTest {
     @Test
     @DisplayName("Test using service in localhost. sent email is wrong")
     void sendEmailToWrongAddress() {
-        EmailReq email = new EmailReq("test@mail.com", "test2@mail.com", "test");
+        EmailReq email = new EmailReq("test@mail.com", "test2@mail.com", "test", name);
         when(emailServiceMock.sendEmailReq(any(EmailReq.class))).thenReturn(ResponseEntity.ok().body(HttpStatus.BAD_GATEWAY.toString()));
 
         EmailServiceClient client = new EmailServiceClient(new RestTemplate(), "http://localhost:8082/**");

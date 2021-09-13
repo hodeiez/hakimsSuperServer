@@ -1,6 +1,5 @@
 package com.example.hakimssuperserver.domain;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -21,12 +20,14 @@ public class EmailReq {
     private String mailfrom;
     @JsonProperty("content")
     private String content;
+    @JsonProperty("name")
+    private String name;
 
     //@JsonCreator
-    public EmailReq( String sendTo,  String mailfrom, String content) {
+    public EmailReq(String sendTo, String mailfrom, String content, String name) {
         this.sendTo = sendTo;
         this.mailfrom = mailfrom;
         this.content=content;
-
+        this.name = name;
     }
 }
