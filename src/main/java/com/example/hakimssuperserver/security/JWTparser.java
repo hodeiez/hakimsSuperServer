@@ -2,15 +2,14 @@ package com.example.hakimssuperserver.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import java.security.Key;
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 

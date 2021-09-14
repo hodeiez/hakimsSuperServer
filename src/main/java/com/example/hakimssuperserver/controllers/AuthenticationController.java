@@ -23,11 +23,12 @@ import java.util.Map;
 public class AuthenticationController {
 //we let them open to everybody
     private final AuthenticationService authenticationService;
-
+//OPEN
     @PostMapping("/signup")
     public ResponseEntity<String> signUp(@RequestBody SignUpDTO signUpDTO){
         return authenticationService.signUp(signUpDTO);
     }
+    //OPEN
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginReq loginReq){
         return authenticationService.login(loginReq);

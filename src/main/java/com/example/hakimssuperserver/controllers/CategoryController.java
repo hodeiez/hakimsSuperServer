@@ -22,9 +22,10 @@ public class CategoryController {
     @Autowired
     private ProductRepository productRepository;
 
+    //OPEN
     @RequestMapping("")
     public Iterable<Category> showAll(){return categoryRepository.findAll();}
-
+//OPEN
     @GetMapping("/all")
     @ResponseBody
     public Iterable<Category> getAllCategories(){

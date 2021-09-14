@@ -9,8 +9,10 @@ spring:
     url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/${SPRING_DATABASE_NAME}
     username: ${SPRING_DATABASE_USERNAME}
     password: ${SPRING_DATABASE_PASSWORD}
-security-key: QeThWmZq4t7w!z%C*F)J@NcRfUjXn2r5u8x/A?D(G+KaPdSgVkYp3s6v9y$B&E)H
+security-key: '*F-J@NcRfUjXn2r5u8x/A?D(G+KbPdSgVkYp3s6v9y$B&E)H@McQfThWmZq4t7w!'
 security-algorithm: HS512
+security-signup-secret-token: I AM SUPER SECRET!!!
+security.service.address: http://localhost:8080
 
+super.email.service.address: http://localhost:8081
 
-super.email.service.address: ${SUPER_EMAIL_SERVICE_ADDRESS}

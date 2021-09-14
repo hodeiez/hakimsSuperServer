@@ -27,23 +27,26 @@ public class CustomerController {
     private final CustomerRepository customerRepository;
 
     private final EmailServiceAdapter emailServiceAdapter;
-
+    //NO NO
     @RequestMapping("")
     public Iterable<Customer> showAllCustomers(){
         return customerRepository.findAll();
     }
 
+    //NO NO
     @ResponseBody
     @GetMapping("/id")
     public Iterable<Customer> getCustomerById(@RequestParam Long id){
         return customerRepository.findAllById(id);
     }
 
+    // NO NO
     @ResponseBody
     @GetMapping("/email")
     public Iterable<Customer> getCustomerByEmail(@RequestParam String email){
         return customerRepository.findAllByEmail(email);
     }
+    // NO NO
     //this request will be use for admin to add a customer
     @PostMapping(value="/add", consumes="application/json",produces="application/json")
     @ResponseBody
@@ -53,6 +56,7 @@ public class CustomerController {
         //twillio-> skicka email. om det ar ok-> spara-...
         return customerRepository.save(customer);
     }
+    // NO NO
     @PostMapping(value="/tryadd", consumes="application/json",produces="application/json")
     @ResponseBody
     public Customer newCustomer(@RequestBody Customer customer){
@@ -75,7 +79,7 @@ public class CustomerController {
         }
     }
 
-
+    //NO NO
     @RequestMapping("/checkemail/{email}")
     public boolean availableEmailCheck(@PathVariable String email){
         Iterable<Customer> names = getCustomerByEmail(email);
@@ -85,6 +89,7 @@ public class CustomerController {
             return true;
         }
     }
+    //NO NO
     //TODO: has to return the token as string
     @RequestMapping("/checkcustomer/{email}/{password}")
     public Customer availableCustomer(@PathVariable String email, @PathVariable String password){

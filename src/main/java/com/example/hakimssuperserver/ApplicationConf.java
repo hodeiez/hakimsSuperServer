@@ -2,9 +2,7 @@ package com.example.hakimssuperserver;
 
 import com.example.hakimssuperserver.domain.SecurityServiceAdapter;
 import com.example.hakimssuperserver.domain.SecurityServiceClient;
-import com.example.hakimssuperserver.repositories.CustomerRepository;
 import com.example.hakimssuperserver.security.JWTparser;
-import com.example.hakimssuperserver.services.AuthenticationService;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,6 +38,7 @@ public class ApplicationConf {
     @Value("${security.service.address}")
     private String baseUrl;
 
+
     @Bean
     public PasswordEncoder getPasswordEncoder(){
         return new BCryptPasswordEncoder();
@@ -62,4 +61,5 @@ public class ApplicationConf {
     public String getSECRET_TOKEN(){
         return SECRET_TOKEN;
     }
+
 }

@@ -20,15 +20,17 @@ import java.util.Optional;
 public class ProductController {
     @Autowired
     private ProductRepository productRepository;
-
+//OPEN
     @RequestMapping("")
     public Iterable<Product> showAll(){return productRepository.findAll();}
-
+//OPEN
     @GetMapping("/all")
     @ResponseBody
     public Iterable<Product> getByCategoryId(@RequestParam Long id){
         return productRepository.findAllByCategoryId(id);
     }
+
+//OPEN
     @GetMapping("/getbyid/{id}")
     public Optional<Product> getProductById(@PathVariable Long id){
         return productRepository.findById(id);

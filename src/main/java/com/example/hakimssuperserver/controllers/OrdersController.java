@@ -25,6 +25,8 @@ public class OrdersController {
     public OrdersRepository ordersRepository;
     @Autowired
     public OrdersService ordersService;
+
+    //ADMIN
     @GetMapping("/all")
     @ResponseBody
     public Iterable<Orders> getAll(){
