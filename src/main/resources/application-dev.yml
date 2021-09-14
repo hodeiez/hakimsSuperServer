@@ -12,9 +12,8 @@ spring:
 
 security-key: ${SECURITY_SECRET_KEY}
 security-algorithm: ${SECURITY_SECRET_ALGORITHM}
-security-signup-secret-token: "I AM SUPER SECRET!!!"
-security.service.address: "http://localhost:8080"
+security-signup-secret-token: ${SUPER_SECRET_SIGNUP_TOKEN}
+security.service.address: ${SUPER_SECURITY_SERVICE_ADDRESS}
 
 super.email.service.address: ${SUPER_EMAIL_SERVICE_ADDRESS}
-server:
-  port: 8082
+

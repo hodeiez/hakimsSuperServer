@@ -48,10 +48,11 @@ class JWTparserTest {
 
     @Test
     void validateToken() {
-         /*
 
+/*
 
-        String token=  "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJob2RkZWk0IiwiYXV0aG9yaXRpZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVTX0FETUlOIn1dLCJpYXQiOjE2MzExMDU0NjYsImV4cCI6MTYzMTEwNTc2Nn0.lyxT9jymt_M-1Cuvc_wgxkf_i2MefHhHQpaM5qiC4JG3NUYoyurSoqi_gGh1BcY2R7qyEIvqOHC53P1IvQ2e3A";
+        //String token=  "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJob2RkZWk0IiwiYXV0aG9yaXRpZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVTX0FETUlOIn1dLCJpYXQiOjE2MzExMDU0NjYsImV4cCI6MTYzMTEwNTc2Nn0.lyxT9jymt_M-1Cuvc_wgxkf_i2MefHhHQpaM5qiC4JG3NUYoyurSoqi_gGh1BcY2R7qyEIvqOHC53P1IvQ2e3A";
+        String token=  "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0MjAwOEBtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0NVU1RPTUVSIn1dLCJpYXQiOjE2MzE2MjQ0ODEsImV4cCI6MTYzMjE1MDA4MX0.wApmUEsPOCRhzEqH0XeZQ6-tcjVubUrWrrogOeEBmbZlL9RtiF20zyHBx_dMhZt1SAC9D4i9cleojw_ngszWBA";
        User expected= new User ("hoddei4","",new ArrayList<GrantedAuthority>(Collections.singleton(new SimpleGrantedAuthority("ROLES_ADMIN"))));
 
        assertEquals(expected,appContext.jwtParser().validateToken(token));

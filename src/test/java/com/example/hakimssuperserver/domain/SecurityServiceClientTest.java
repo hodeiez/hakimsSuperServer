@@ -15,7 +15,8 @@ import org.springframework.web.client.RestTemplate;
  * Copyright: MIT
  */
 class SecurityServiceClientTest {
-
+    //DIRECT test to securityservice
+    /*
     @Test
     void sendLoginReq() throws JsonProcessingException {
         SecurityServiceClient securityServiceClient=new SecurityServiceClient(new RestTemplate(), "http://localhost:8080/test");
@@ -23,4 +24,6 @@ class SecurityServiceClientTest {
         ObjectMapper o=new ObjectMapper();
         Assertions.assertEquals(o.writeValueAsString(loginReq),securityServiceClient.sendLoginReq(loginReq).getBody());
     }
+
+     */
 }

@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -50,23 +51,23 @@ class AuthenticationServiceTest {
 
 
     @Test
-    void getMyDetails() {
+    void getMyDetailsWhenISendTokenInHeader() {
         AdminRepository adminRepository=mock(AdminRepository.class);
 
         CustomerRepository customerRepository=mock(CustomerRepository.class);
-
-        when(customerRepository.findCustomerByEmail(any())).thenReturn(new Customer("user",
+        Customer expected=new Customer("user",
                 "adminlast",
                 "test2007@mail.com",
                 " ",
                 "",
                 "",
                 " ",
-                "password"));
+                "password");
+        when(customerRepository.findCustomerByEmail(any())).thenReturn(expected);
         AuthenticationService authenticationService=new AuthenticationService(SECRET_TOKEN,customerRepository,securityServiceAdapter,passwordEncoder, adminRepository, emailServiceAdapter,jWTparser);
 
         HttpHeaders headers=new HttpHeaders();
         headers.set("Authorization","Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0MjAwOEBtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0NVU1RPTUVSIn1dLCJpYXQiOjE2MzE2MjQ0ODEsImV4cCI6MTYzMjE1MDA4MX0.wApmUEsPOCRhzEqH0XeZQ6-tcjVubUrWrrogOeEBmbZlL9RtiF20zyHBx_dMhZt1SAC9D4i9cleojw_ngszWBA");
-        System.out.println(authenticationService.getMyDetails(headers));
+        assertEquals(expected,authenticationService.getMyDetails(headers).getBody());
     }
 }
