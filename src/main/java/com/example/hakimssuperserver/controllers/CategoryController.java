@@ -30,13 +30,14 @@ public class CategoryController {
     public Iterable<Category> getAllCategories(){
         return categoryRepository.findAll();}
 
+    //ONLY Admin
     @PostMapping(value="/add", consumes="application/json",produces="application/json")
     @ResponseBody
     public Category addProduct(@RequestBody Category category){
         return categoryRepository.save(category);
     }
 
-
+    //ONLY Admin
     @RequestMapping(path="/{categoryID}/delete")
     public String deleteCategory(@PathVariable("categoryID")Long categoryID){
         List<Product> productsToUpdate = productRepository.findAllByCategoryId(categoryID);

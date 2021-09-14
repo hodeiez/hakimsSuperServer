@@ -21,7 +21,7 @@ import java.util.Map;
 @AllArgsConstructor
 @RestController
 public class AuthenticationController {
-
+//we let them open to everybody
     private final AuthenticationService authenticationService;
 
     @PostMapping("/signup")

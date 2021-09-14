@@ -34,6 +34,7 @@ public class OrdersController {
     /*
     1-send a customer id an create an order
      */
+    //ONLY CUSTOMER
     @PostMapping(value="/add/{customerId}", consumes="application/json",produces="application/json")
     @ResponseBody
     public Orders addOrder(@RequestBody List<OrderDetails> orderDetails, @PathVariable Long customerId){
@@ -41,6 +42,7 @@ public class OrdersController {
     return ordersService.addOrder(orderDetails,customerId);
 
     }
+    //ONLY CUSTOMER
     @PostMapping(value="/getbycustomer", consumes="application/json",produces="application/json")
     @ResponseBody
     public List<Orders>getByCustomer(@RequestBody Customer customer){

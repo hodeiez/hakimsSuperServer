@@ -96,6 +96,7 @@ public class CustomerController {
         }
         return null;
     }
+    //ONLY CUSTOMER
     @PostMapping(value="/update", consumes="application/json",produces="application/json")
     @ResponseBody
     public Customer updateCustomer(@RequestBody Customer customer){
@@ -105,7 +106,7 @@ public class CustomerController {
         customer.setPassword(savedCustomer.getPassword());
         return customerRepository.save(customer);
     }
-
+//ONLY CUSTOMER
     @GetMapping("/getmydetails")
     public ResponseEntity<?> getMe(@RequestHeader HttpHeaders headers){
         return authenticationService.getMyDetails(headers);

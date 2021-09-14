@@ -18,12 +18,14 @@ import org.springframework.web.bind.annotation.*;
 public class OrderDetailsController {
     @Autowired
     public OrderDetailsRepository orderDetailsRepository;
-
+    //ONLY ADMIN
     @GetMapping("/all")
     @ResponseBody
     public Iterable<OrderDetails> getAllOrderDetails(){
         return orderDetailsRepository.findAll();
     }
+
+   //ONLY CUSTOMER and ONLY ADMIN
     @GetMapping("/byorderid/{orderId}")
     @ResponseBody
     public Iterable<OrderDetails> getByOrderId(@PathVariable Long orderId){

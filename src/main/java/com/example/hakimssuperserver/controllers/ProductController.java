@@ -33,6 +33,7 @@ public class ProductController {
     public Optional<Product> getProductById(@PathVariable Long id){
         return productRepository.findById(id);
     }
+    //ONLY ADMIN
 //adds a product with a post request and response with the object created
     @PostMapping(value="/add", consumes="application/json",produces="application/json")
     @ResponseBody
