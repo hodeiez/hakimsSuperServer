@@ -60,10 +60,13 @@ public class AuthenticationService {
      * @return
      */
     private boolean emailNotInDB(SignUpDTO signUpDTO) {
-        boolean customerNotExists=!customerRepository.existsByEmail(signUpDTO.getEmail());
-        boolean adminNotExists=!adminRepository.existsByEmail(signUpDTO.getEmail());
-
-        return (customerNotExists || adminNotExists);
+        boolean customerExists=customerRepository.existsByEmail(signUpDTO.getEmail());
+        boolean adminExists=adminRepository.existsByEmail(signUpDTO.getEmail());
+        if(customerExists)
+            return false;
+        else if(adminExists)
+            return false;
+        else return !customerExists || !adminExists;
     }
 
     /**
