@@ -58,7 +58,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                 //we run on the filters
                 chain.doFilter(request, response);
             }
-            catch(StringIndexOutOfBoundsException e){
+            catch(Exception e){
                 chain.doFilter(request, response);
             }
 

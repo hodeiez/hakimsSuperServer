@@ -5,11 +5,17 @@ import com.example.hakimssuperserver.models.Admin;
 import com.example.hakimssuperserver.models.Customer;
 import com.example.hakimssuperserver.repositories.AdminRepository;
 import com.example.hakimssuperserver.repositories.CustomerRepository;
+import com.example.hakimssuperserver.security.JWTparser;
+import io.jsonwebtoken.Jwts;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 /**
  * Created by Hodei Eceiza
@@ -35,30 +41,79 @@ public class AuthenticationService {
 
     private final EmailServiceAdapter emailServiceAdapter;
 
+    private final JWTparser jwtParser;
 
-    //TODO:redefine this logic!!
+
     public ResponseEntity<String> signUp(SignUpDTO signUpDTO) {
-        SignUpReq signUpReq;
-        if (!customerRepository.existsByEmail(signUpDTO.getEmail()) || !adminRepository.existsByEmail(signUpDTO.getEmail())) {
 
-            if (signUpDTO.getSecretToken() != null && signUpDTO.getSecretToken().equals(SECRET_TOKEN)) {
 
-                Admin admin = new Admin(signUpDTO.getFirstname(), signUpDTO.getLastname(), signUpDTO.getEmail(), passwordEncoder.encode(signUpDTO.getPassword()));
-                adminRepository.save(admin);
-                signUpReq = new SignUpReq(signUpDTO.getEmail(), signUpDTO.getPassword(), "ROLE_ADMIN");
+        if (emailNotInDB(signUpDTO)) {
 
-            } else {
-                Customer customer = new Customer(signUpDTO.getFirstname(), signUpDTO.getLastname(), signUpDTO.getEmail(), signUpDTO.getTelephone(), signUpDTO.getAddress(), signUpDTO.getCity(), signUpDTO.getZip(), passwordEncoder.encode(signUpDTO.getPassword()));
-                customerRepository.save(customer);
-                signUpReq = new SignUpReq(signUpDTO.getEmail(), signUpDTO.getPassword(), "ROLE_CUSTOMER");
-
-                emailServiceAdapter.sendEmailReq(new EmailReq(signUpDTO.getEmail(), " "," ", signUpDTO.getFirstname()));
-            }
-            return securityServiceAdapter.sendSignUpReq(signUpReq);
+            return sendSignUp(signUpDTO);
         }
         return new ResponseEntity<>("user is already signed up", HttpStatus.ALREADY_REPORTED);
     }
-    public ResponseEntity<String> login(LoginReq loginReq){
+
+    /**
+     * check if user exist as customer or admin
+     * @param signUpDTO
+     * @return
+     */
+    private boolean emailNotInDB(SignUpDTO signUpDTO) {
+        boolean customerNotExists=!customerRepository.existsByEmail(signUpDTO.getEmail());
+        boolean adminNotExists=!adminRepository.existsByEmail(signUpDTO.getEmail());
+
+        return (customerNotExists || adminNotExists);
+    }
+
+    /**
+     * if signupDTO has the secret token we signup as admin, if not we sign up as customer
+     * @param signUpDTO
+     * @return
+     */
+    private ResponseEntity<String> sendSignUp(SignUpDTO signUpDTO) {
+        SignUpReq signUpReq;
+        if (signUpDTO.getSecretToken() != null && signUpDTO.getSecretToken().equals(SECRET_TOKEN)) {
+
+            Admin admin = new Admin(signUpDTO.getFirstname(), signUpDTO.getLastname(), signUpDTO.getEmail(), passwordEncoder.encode(signUpDTO.getPassword()));
+            adminRepository.save(admin);
+            signUpReq = new SignUpReq(signUpDTO.getEmail(), signUpDTO.getPassword(), "ROLE_ADMIN");
+
+        } else {
+            Customer customer = new Customer(signUpDTO.getFirstname(), signUpDTO.getLastname(), signUpDTO.getEmail(), signUpDTO.getTelephone(), signUpDTO.getAddress(), signUpDTO.getCity(), signUpDTO.getZip(), passwordEncoder.encode(signUpDTO.getPassword()));
+            customerRepository.save(customer);
+            signUpReq = new SignUpReq(signUpDTO.getEmail(), signUpDTO.getPassword(), "ROLE_CUSTOMER");
+
+            emailServiceAdapter.sendEmailReq(new EmailReq(signUpDTO.getEmail(), " ", " ", signUpDTO.getFirstname()));
+        }
+
+        return securityServiceAdapter.sendSignUpReq(signUpReq);
+
+    }
+
+    /**
+     * Login redirects to security service
+     * @param loginReq
+     * @return
+     */
+    public ResponseEntity<String> login(LoginReq loginReq) {
         return securityServiceAdapter.sendLoginReq(loginReq);
     }
+
+    /**
+     * get details by sending the token in Authorization header
+     * @param headers
+     * @return
+     */
+    public ResponseEntity<?> getMyDetails(HttpHeaders headers) {
+        try {
+            String token = Objects.requireNonNull(headers.get("Authorization")).get(0).substring(7);
+            String email =jwtParser.validateToken(token).getUsername();
+            Customer customer =customerRepository.findCustomerByEmail(email);
+            return ResponseEntity.ok().body(customer);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Couldn't get data", HttpStatus.EXPECTATION_FAILED);
+        }
+    }
+
 }

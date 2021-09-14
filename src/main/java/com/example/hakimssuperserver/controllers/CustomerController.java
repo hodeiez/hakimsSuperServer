@@ -3,8 +3,11 @@ import com.example.hakimssuperserver.domain.EmailReq;
 import com.example.hakimssuperserver.domain.EmailServiceAdapter;
 import com.example.hakimssuperserver.models.Customer;
 import com.example.hakimssuperserver.repositories.CustomerRepository;
+import com.example.hakimssuperserver.services.AuthenticationService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -20,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/customer")
 public class CustomerController {
 
-
+    private final AuthenticationService authenticationService;
     private final CustomerRepository customerRepository;
 
     private final EmailServiceAdapter emailServiceAdapter;
@@ -45,12 +48,11 @@ public class CustomerController {
     @PostMapping(value="/add", consumes="application/json",produces="application/json")
     @ResponseBody
     public Customer addCustomer(@RequestBody Customer customer){
-        //TODO: decide if we want to send the email to the user.
+
         emailServiceAdapter.sendEmailReq(new EmailReq(customer.getEmail(),"ss@ss"," ", customer.getFirstname()));
         //twillio-> skicka email. om det ar ok-> spara-...
         return customerRepository.save(customer);
     }
-    //TODO: send to email,save user with encrypted password and send to supersecurity login Without encrypted password, check if has token and add ROLE, and return String(the token)
     @PostMapping(value="/tryadd", consumes="application/json",produces="application/json")
     @ResponseBody
     public Customer newCustomer(@RequestBody Customer customer){
@@ -104,5 +106,8 @@ public class CustomerController {
         return customerRepository.save(customer);
     }
 
-    //TODO: new method getmyprofile , gets a JWTtoken and sends a customer.
+    @GetMapping("/getmydetails")
+    public ResponseEntity<?> getMe(@RequestHeader HttpHeaders headers){
+        return authenticationService.getMyDetails(headers);
+    }
 }

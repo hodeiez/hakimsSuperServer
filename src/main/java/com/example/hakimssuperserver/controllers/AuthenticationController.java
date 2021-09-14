@@ -4,8 +4,11 @@ import com.example.hakimssuperserver.domain.LoginReq;
 import com.example.hakimssuperserver.services.AuthenticationService;
 import com.example.hakimssuperserver.services.SignUpDTO;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 /**
  * Created by Hodei Eceiza
@@ -29,4 +32,6 @@ public class AuthenticationController {
     public ResponseEntity<String> login(@RequestBody LoginReq loginReq){
         return authenticationService.login(loginReq);
     }
+
+
 }
