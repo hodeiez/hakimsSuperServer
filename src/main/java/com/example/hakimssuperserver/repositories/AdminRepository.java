@@ -13,4 +13,5 @@ import org.springframework.data.repository.CrudRepository;
  * Copyright: MIT
  */
 public interface AdminRepository extends JpaRepository<Admin,Long> {
+    boolean existsByEmail(String email);
 }

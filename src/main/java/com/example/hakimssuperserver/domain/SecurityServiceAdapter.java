@@ -11,4 +11,5 @@ import org.springframework.http.ResponseEntity;
  */
 public interface SecurityServiceAdapter {
     ResponseEntity<String> sendLoginReq (LoginReq loginReq);
+    ResponseEntity<String> sendSignUpReq(SignUpReq signupReq);
 }

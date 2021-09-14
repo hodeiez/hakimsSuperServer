@@ -3,6 +3,7 @@ import com.example.hakimssuperserver.domain.EmailReq;
 import com.example.hakimssuperserver.domain.EmailServiceAdapter;
 import com.example.hakimssuperserver.models.Customer;
 import com.example.hakimssuperserver.repositories.CustomerRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,15 +14,16 @@ import org.springframework.web.bind.annotation.*;
  * Project: hakimsSuperServer
  * Copywrite: MIT
  */
+@AllArgsConstructor
 @CrossOrigin
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
 
-    @Autowired
-    private CustomerRepository customerRepository;
-    @Autowired
-    private EmailServiceAdapter emailServiceAdapter;
+
+    private final CustomerRepository customerRepository;
+
+    private final EmailServiceAdapter emailServiceAdapter;
 
     @RequestMapping("")
     public Iterable<Customer> showAllCustomers(){
@@ -43,7 +45,7 @@ public class CustomerController {
     @PostMapping(value="/add", consumes="application/json",produces="application/json")
     @ResponseBody
     public Customer addCustomer(@RequestBody Customer customer){
-        //TODO: decide if we want to  send the email to the user.
+        //TODO: decide if we want to send the email to the user.
         emailServiceAdapter.sendEmailReq(new EmailReq(customer.getEmail(),"ss@ss"," ", customer.getFirstname()));
         //twillio-> skicka email. om det ar ok-> spara-...
         return customerRepository.save(customer);

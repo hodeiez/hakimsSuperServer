@@ -1,5 +1,6 @@
 package com.example.hakimssuperserver.domain;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -21,6 +22,21 @@ public class SecurityServiceClient implements SecurityServiceAdapter{
 
     @Override
     public ResponseEntity<String> sendLoginReq(LoginReq loginReq) {
-        return restTemplate.postForEntity(baseUrl,loginReq,String.class,String.class);
+        try{
+        ResponseEntity<String> response= restTemplate.postForEntity(baseUrl+"/login",loginReq,String.class,String.class);
+        return response;}
+        catch(Exception e){
+            return ResponseEntity.badRequest().body(HttpStatus.BAD_GATEWAY.toString());
+        }
+    }
+
+    @Override
+    public ResponseEntity<String> sendSignUpReq(SignUpReq signupReq) {
+       try {
+           ResponseEntity<String> response = restTemplate.postForEntity(baseUrl+"/signup", signupReq, String.class, String.class);
+            return response;
+       }catch(Exception e){
+           return ResponseEntity.badRequest().body(HttpStatus.BAD_GATEWAY.toString());
+       }
     }
 }

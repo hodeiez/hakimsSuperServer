@@ -1,6 +1,10 @@
 package com.example.hakimssuperserver;
 
+import com.example.hakimssuperserver.domain.SecurityServiceAdapter;
+import com.example.hakimssuperserver.domain.SecurityServiceClient;
+import com.example.hakimssuperserver.repositories.CustomerRepository;
 import com.example.hakimssuperserver.security.JWTparser;
+import com.example.hakimssuperserver.services.AuthenticationService;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.client.RestTemplate;
 
 import javax.crypto.spec.SecretKeySpec;
 
@@ -21,12 +26,19 @@ import javax.crypto.spec.SecretKeySpec;
  */
 @Configuration
 public class ApplicationConf {
+
+    @Value("${security-signup-secret-token}")
+    private String SECRET_TOKEN;
+
     @Value("${security-key}")
     private String key;
 
 
     @Value("${security-algorithm}")
     private String algorithm;
+
+    @Value("${security.service.address}")
+    private String baseUrl;
 
     @Bean
     public PasswordEncoder getPasswordEncoder(){
@@ -41,6 +53,13 @@ public class ApplicationConf {
         return new JWTparser(new SecretKeySpec(signingKeyBytes, signatureAlgorithm.getJcaName()));
 
     }
+    @Bean
+    public SecurityServiceAdapter securityClient(){
+        return new SecurityServiceClient(new RestTemplate(),baseUrl);
+    }
 
-
+    @Bean
+    public String getSECRET_TOKEN(){
+        return SECRET_TOKEN;
+    }
 }

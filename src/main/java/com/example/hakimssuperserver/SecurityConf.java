@@ -29,7 +29,7 @@ public class SecurityConf extends WebSecurityConfigurerAdapter {
                 .cors().disable()
                 .csrf().disable()
                 .authorizeRequests()
-                //.antMatchers("/**").permitAll()
+                .antMatchers("/signup").permitAll()
                 .antMatchers("/customer").hasRole("ADMIN")
                 .and()
                 .addFilter(jwtAuthorizationFilter).sessionManagement()

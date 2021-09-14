@@ -1,5 +1,6 @@
 package com.example.hakimssuperserver.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -30,6 +31,7 @@ public class Customer {
     private String address;
     private String city;
     private String zip;
+    @JsonIgnore
     private String password;
 
     @CreationTimestamp
@@ -54,6 +56,17 @@ public class Customer {
         this.password = password;
         this.createDate = createDate;
         this.modifyDate = modifyDate;
+    }
+
+    public Customer(String firstname, String lastname, String email, String telephone, String address, String city, String zip, String password) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.telephone = telephone;
+        this.address = address;
+        this.city = city;
+        this.zip = zip;
+        this.password = password;
     }
 
     public Customer() {

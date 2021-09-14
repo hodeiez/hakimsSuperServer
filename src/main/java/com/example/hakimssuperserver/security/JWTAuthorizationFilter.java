@@ -38,22 +38,30 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         //we expect to have the token in the header with Authorization key
         String header=request.getHeader("Authorization");
         //if the request doesnt have this header we go on running spring security filters
-        if(header.isEmpty()||!header.startsWith("Bearer")) {
+        if(header==null||!header.startsWith("Bearer")) {
             chain.doFilter(request, response);
             return;
         }
 
         else {
-            //we create a user from token
-            User user = jwtparser.validateToken(header.substring(7));
-            if(user!=null) {
-                //we create an authentication with that user
-                 authenticationToken = new UsernamePasswordAuthenticationToken(user,null, user.getAuthorities());
+            String token;
+            try {
+                token=header.substring(7);
+                //we create a user from token
+                User user = jwtparser.validateToken(token);
+                if(user!=null) {
+                    //we create an authentication with that user
+                    authenticationToken = new UsernamePasswordAuthenticationToken(user,null, user.getAuthorities());
+                }
+                //we "save" in security
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                //we run on the filters
+                chain.doFilter(request, response);
             }
-            //we "save" in security
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-           //we run on the filters
-            chain.doFilter(request, response);
+            catch(StringIndexOutOfBoundsException e){
+                chain.doFilter(request, response);
+            }
+
         }
         }
 }

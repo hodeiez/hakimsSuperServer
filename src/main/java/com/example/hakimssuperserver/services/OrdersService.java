@@ -7,6 +7,7 @@ import com.example.hakimssuperserver.models.Product;
 import com.example.hakimssuperserver.repositories.OrderDetailsRepository;
 import com.example.hakimssuperserver.repositories.OrdersRepository;
 import com.example.hakimssuperserver.repositories.ProductRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,14 +22,15 @@ import java.util.Optional;
  * Project: hakimsSuperServer
  * Copyright: MIT
  */
+@AllArgsConstructor
 @Service
 public class OrdersService {
-    @Autowired
-    public OrdersRepository ordersRepository;
-    @Autowired
-    public OrderDetailsRepository orderDetailsRepository;
-    @Autowired
-    public ProductRepository productRepository;
+
+    private final OrdersRepository ordersRepository;
+
+    private final OrderDetailsRepository orderDetailsRepository;
+
+    private final ProductRepository productRepository;
 
 
     public Orders addOrder( List<OrderDetails> orderDetails,  Long customerId){
