@@ -1,9 +1,9 @@
 package com.example.hakimssuperserver.repositories;
 
-import com.example.hakimssuperserver.models.Category;
+
 import com.example.hakimssuperserver.models.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
+
 
 import java.util.List;
 
