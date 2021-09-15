@@ -99,7 +99,7 @@ public class AuthenticationService {
      * @param loginReq
      * @return
      */
-    public ResponseEntity<String> login(LoginReq loginReq) {
+    public ResponseEntity<?> login(LoginReq loginReq) {
         return securityServiceAdapter.sendLoginReq(loginReq);
     }
 

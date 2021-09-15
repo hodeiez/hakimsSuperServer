@@ -10,6 +10,6 @@ import org.springframework.http.ResponseEntity;
  * Copyright: MIT
  */
 public interface SecurityServiceAdapter {
-    ResponseEntity<String> sendLoginReq (LoginReq loginReq);
+    ResponseEntity<?> sendLoginReq (LoginReq loginReq);
     ResponseEntity<String> sendSignUpReq(SignUpReq signupReq);
 }

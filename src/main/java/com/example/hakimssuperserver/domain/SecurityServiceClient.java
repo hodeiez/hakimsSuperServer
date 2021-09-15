@@ -21,10 +21,11 @@ public class SecurityServiceClient implements SecurityServiceAdapter{
     }
 
     @Override
-    public ResponseEntity<String> sendLoginReq(LoginReq loginReq) {
+    public ResponseEntity<?> sendLoginReq(LoginReq loginReq) {
         try{
         ResponseEntity<String> response= restTemplate.postForEntity(baseUrl+"/login",loginReq,String.class,String.class);
-        return response;}
+        TokenDTO token=new TokenDTO(response.getBody());
+        return ResponseEntity.ok().body(token);}
         catch(Exception e){
             return ResponseEntity.badRequest().body(HttpStatus.BAD_GATEWAY.toString());
         }
