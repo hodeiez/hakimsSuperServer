@@ -3,9 +3,13 @@ package com.example.hakimssuperserver.controllers;
 import com.example.hakimssuperserver.models.Customer;
 import com.example.hakimssuperserver.models.OrderDetails;
 import com.example.hakimssuperserver.models.Orders;
+import com.example.hakimssuperserver.repositories.CustomerRepository;
 import com.example.hakimssuperserver.repositories.OrdersRepository;
 import com.example.hakimssuperserver.services.OrdersService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,14 +21,17 @@ import java.util.List;
  * Project: hakimsSuperServer
  * Copyright: MIT
  */
+@AllArgsConstructor
 @CrossOrigin
 @RestController
 @RequestMapping("/orders")
 public class OrdersController {
-    @Autowired
-    public OrdersRepository ordersRepository;
-    @Autowired
-    public OrdersService ordersService;
+
+    private final OrdersRepository ordersRepository;
+
+    private final OrdersService ordersService;
+
+
 
     //ADMIN
     @GetMapping("/all")
@@ -39,9 +46,15 @@ public class OrdersController {
     //ONLY CUSTOMER
     @PostMapping(value="/add/{customerId}", consumes="application/json",produces="application/json")
     @ResponseBody
-    public Orders addOrder(@RequestBody List<OrderDetails> orderDetails, @PathVariable Long customerId){
-        //payment gateway-> betäla. om (ok)=orderService.addorder(oredetails, customerID). om inteOk()-> badrequest
-    return ordersService.addOrder(orderDetails,customerId);
+    public ResponseEntity<?> addOrder(@RequestBody List<OrderDetails> orderDetails, @PathVariable Long customerId){
+        try{
+
+    ordersService.addOrder(orderDetails,customerId);
+       return  ordersService.sendOrderConfirmedEmail(customerId);
+        }
+        catch(Exception e){
+            return new ResponseEntity(HttpStatus.SERVICE_UNAVAILABLE);
+        }
 
     }
     //ONLY CUSTOMER

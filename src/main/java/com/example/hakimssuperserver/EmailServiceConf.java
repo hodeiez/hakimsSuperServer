@@ -21,6 +21,6 @@ public class EmailServiceConf {
     private String emailServiceAddress;
     @Bean
     public EmailServiceAdapter emailServiceAdapter(){
-       return new EmailServiceClient(new RestTemplate(),emailServiceAddress+"/welcome");
+       return new EmailServiceClient(new RestTemplate(),emailServiceAddress);
     }
 }

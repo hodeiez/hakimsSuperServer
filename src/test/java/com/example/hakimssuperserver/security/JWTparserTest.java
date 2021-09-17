@@ -1,6 +1,7 @@
 package com.example.hakimssuperserver.security;
 
 import com.example.hakimssuperserver.ApplicationConf;
+import com.example.hakimssuperserver.domain.EmailType;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.junit.jupiter.api.Test;

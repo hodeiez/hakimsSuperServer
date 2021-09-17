@@ -1,14 +1,23 @@
 package com.example.hakimssuperserver.services;
 
+import com.example.hakimssuperserver.domain.EmailReq;
+import com.example.hakimssuperserver.domain.EmailServiceAdapter;
+import com.example.hakimssuperserver.domain.EmailType;
 import com.example.hakimssuperserver.models.Customer;
 import com.example.hakimssuperserver.models.OrderDetails;
 import com.example.hakimssuperserver.models.Orders;
 import com.example.hakimssuperserver.models.Product;
+import com.example.hakimssuperserver.repositories.CustomerRepository;
 import com.example.hakimssuperserver.repositories.OrderDetailsRepository;
 import com.example.hakimssuperserver.repositories.OrdersRepository;
 import com.example.hakimssuperserver.repositories.ProductRepository;
 import lombok.AllArgsConstructor;
+import org.apache.coyote.Response;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -32,6 +41,9 @@ public class OrdersService {
 
     private final ProductRepository productRepository;
 
+    private final EmailServiceAdapter emailServiceAdapter;
+
+    private final CustomerRepository customerRepository;
 
     public Orders addOrder( List<OrderDetails> orderDetails,  Long customerId){
         Orders order=new Orders();
@@ -53,4 +65,15 @@ public class OrdersService {
             orderDetailsRepository.save(details);
         }
         return savedOrder;
-}}
+}
+    public ResponseEntity<?> sendOrderConfirmedEmail(Long customerId){
+        try{
+        Customer customer=customerRepository.findById(customerId).orElseThrow(()->new UsernameNotFoundException("not found username"));
+            emailServiceAdapter.sendEmailReq(new EmailReq(customer.getEmail()," "," ",customer.getFirstname(), EmailType.CONFIRM.toString()));
+            return ResponseEntity.ok().body("Order confirmation sent");
+        }
+        catch(Exception e){
+            return new ResponseEntity(HttpStatus.EXPECTATION_FAILED);
+        }
+    }
+}

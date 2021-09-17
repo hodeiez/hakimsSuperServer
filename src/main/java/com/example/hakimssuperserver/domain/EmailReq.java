@@ -22,12 +22,15 @@ public class EmailReq {
     private String content;
     @JsonProperty("name")
     private String name;
+    @JsonProperty("type")
+    private String type;
 
     //@JsonCreator
-    public EmailReq(String sendTo, String mailfrom, String content, String name) {
+    public EmailReq(String sendTo, String mailfrom, String content, String name, String type) {
         this.sendTo = sendTo;
         this.mailfrom = mailfrom;
         this.content=content;
         this.name = name;
+        this.type=type;
     }
 }

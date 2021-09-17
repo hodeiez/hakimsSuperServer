@@ -52,7 +52,7 @@ public class CustomerController {
     @ResponseBody
     public Customer addCustomer(@RequestBody Customer customer){
 
-        emailServiceAdapter.sendEmailReq(new EmailReq(customer.getEmail(),"ss@ss"," ", customer.getFirstname()));
+        emailServiceAdapter.sendEmailReq(new EmailReq(customer.getEmail(),"ss@ss"," ", customer.getFirstname(),"welcome"));
         //twillio-> skicka email. om det ar ok-> spara-...
         return customerRepository.save(customer);
     }
@@ -61,7 +61,7 @@ public class CustomerController {
     @ResponseBody
     public Customer newCustomer(@RequestBody Customer customer){
         if(availableEmail(customer.getEmail())){
-            emailServiceAdapter.sendEmailReq(new EmailReq(customer.getEmail(),"ss@ss"," ", customer.getFirstname()));
+            emailServiceAdapter.sendEmailReq(new EmailReq(customer.getEmail(),"ss@ss"," ", customer.getFirstname(),"welcome"));
             customerRepository.save(customer);
             return customer;
         } else {

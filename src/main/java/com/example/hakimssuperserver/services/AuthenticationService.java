@@ -6,10 +6,8 @@ import com.example.hakimssuperserver.models.Customer;
 import com.example.hakimssuperserver.repositories.AdminRepository;
 import com.example.hakimssuperserver.repositories.CustomerRepository;
 import com.example.hakimssuperserver.security.JWTparser;
-import io.jsonwebtoken.Jwts;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -87,7 +85,7 @@ public class AuthenticationService {
             customerRepository.save(customer);
             signUpReq = new SignUpReq(signUpDTO.getEmail(), signUpDTO.getPassword(), "ROLE_CUSTOMER");
 
-            emailServiceAdapter.sendEmailReq(new EmailReq(signUpDTO.getEmail(), " ", " ", signUpDTO.getFirstname()));
+            emailServiceAdapter.sendEmailReq(new EmailReq(signUpDTO.getEmail(), " ", " ", signUpDTO.getFirstname(),EmailType.WELCOME.toString()));
         }
 
         return securityServiceAdapter.sendSignUpReq(signUpReq);
