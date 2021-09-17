@@ -37,7 +37,7 @@ class EmailServiceClientTest {
 
 
     }
-
+/* ONLY FOR LOCAL TEST
 
     @Test
     @DisplayName("Test using service in localhost. sent email is success")
@@ -62,4 +62,6 @@ class EmailServiceClientTest {
         client.sendEmailReq(email);
         assertEquals(emailServiceMock.sendEmailReq(email).getBody(), client.sendEmailReq(email).getBody());
     }
+
+ */
 }

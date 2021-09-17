@@ -25,7 +25,7 @@ public class EmailServiceClient implements EmailServiceAdapter{
     @Override
     public ResponseEntity<String> sendEmailReq(EmailReq emailReq) {
         try{
-      ResponseEntity<String> response= restTemplate.postForEntity(baseUrl+"/"+emailReq.getType(),emailReq,String.class,String.class);
+      ResponseEntity<String> response= restTemplate.postForEntity(baseUrl+emailReq.getType(),emailReq,String.class,String.class);
         return response;
 
         }
