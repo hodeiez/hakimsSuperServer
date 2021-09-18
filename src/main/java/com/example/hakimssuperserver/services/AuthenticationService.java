@@ -74,11 +74,14 @@ public class AuthenticationService {
      */
     private ResponseEntity<String> sendSignUp(SignUpDTO signUpDTO) {
         SignUpReq signUpReq;
-        if (signUpDTO.getSecretToken() != null && signUpDTO.getSecretToken().equals(SECRET_TOKEN)) {
-
-            Admin admin = new Admin(signUpDTO.getFirstname(), signUpDTO.getLastname(), signUpDTO.getEmail(), passwordEncoder.encode(signUpDTO.getPassword()));
-            adminRepository.save(admin);
-            signUpReq = new SignUpReq(signUpDTO.getEmail(), signUpDTO.getPassword(), "ROLE_ADMIN");
+        if (signUpDTO.getSecretToken() != null ) {
+                    if(signUpDTO.getSecretToken().equals(SECRET_TOKEN)) {
+                        Admin admin = new Admin(signUpDTO.getFirstname(), signUpDTO.getLastname(), signUpDTO.getEmail(), passwordEncoder.encode(signUpDTO.getPassword()));
+                        adminRepository.save(admin);
+                        signUpReq = new SignUpReq(signUpDTO.getEmail(), signUpDTO.getPassword(), "ROLE_ADMIN");
+                    }
+                    else
+                        return ResponseEntity.badRequest().body("Wrong token, couldn't sign up as Admin");
 
         } else {
             Customer customer = new Customer(signUpDTO.getFirstname(), signUpDTO.getLastname(), signUpDTO.getEmail(), signUpDTO.getTelephone(), signUpDTO.getAddress(), signUpDTO.getCity(), signUpDTO.getZip(), passwordEncoder.encode(signUpDTO.getPassword()));
