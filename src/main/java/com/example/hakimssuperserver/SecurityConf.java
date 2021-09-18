@@ -30,7 +30,7 @@ public class SecurityConf extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/signup","/login","/category","/category/all","/product","/product/all","/product/getbyid/*").permitAll() //public endpoints
-                .antMatchers("/category/add","/category/*","/orderdetails/all","/product/add","orders/all").hasRole("ADMIN") //endpoints for admin
+                .antMatchers("/category/add","/category/*","/orderdetails/all","/product/add","/orders/all").hasRole("ADMIN") //endpoints for admin
                 .antMatchers("/customer/getmydetails","/customer/update","/orders/add/*","/orders/getbycustomer").hasRole("CUSTOMER") //endpoints for customer
                 .antMatchers("/orderdetails/byorderid/*").hasAnyRole("ADMIN","CUSTOMER") //endpoints for admin and for customer
                 .antMatchers("/customer","/customer/id","/customer/email","/customer/add","/customer/tryadd","customer/checkemail","/customer/checkcustomer").denyAll() //unusable endpoints
