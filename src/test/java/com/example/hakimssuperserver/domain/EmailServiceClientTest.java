@@ -37,31 +37,30 @@ class EmailServiceClientTest {
 
 
     }
-/* ONLY FOR LOCAL TEST
+
 
     @Test
-    @DisplayName("Test using service in localhost. sent email is success")
+    @DisplayName("Test using service service in prod, sent email is success")
     void sendMailSuccess() {
         EmailReq email = new EmailReq("test@mail.com", "test2@mail.com", "test", "name","welcome");
 
 
-        when(emailServiceMock.sendEmailReq(any(EmailReq.class))).thenReturn(ResponseEntity.ok().body("welcome email sent"));
+        when(emailServiceMock.sendEmailReq(any(EmailReq.class))).thenReturn(ResponseEntity.ok().body(null));
 
-        EmailServiceClient client = new EmailServiceClient(new RestTemplate(), "http://localhost:8082/welcome");
+        EmailServiceClient client = new EmailServiceClient(new RestTemplate(), "http://superemailservice.herokuapp.com/");
 
         assertEquals(emailServiceMock.sendEmailReq(email).getBody(), client.sendEmailReq(email).getBody());
     }
 
     @Test
-    @DisplayName("Test using service in localhost. sent email is wrong")
+    @DisplayName("sent email to wrong address")
     void sendEmailToWrongAddress() {
         EmailReq email = new EmailReq("test@mail.com", "test2@mail.com", "test", "name","welcome");
-        when(emailServiceMock.sendEmailReq(any(EmailReq.class))).thenReturn(ResponseEntity.ok().body(HttpStatus.BAD_GATEWAY.toString()));
+        when(emailServiceMock.sendEmailReq(any(EmailReq.class))).thenReturn(ResponseEntity.badRequest().body(HttpStatus.BAD_GATEWAY.toString()));
 
-        EmailServiceClient client = new EmailServiceClient(new RestTemplate(), "http://localhost:8082/**");
+        EmailServiceClient client = new EmailServiceClient(new RestTemplate(), "http://superemailservice.herokuapp.co"); //FELL ADDRESS!!
         client.sendEmailReq(email);
-        assertEquals(emailServiceMock.sendEmailReq(email).getBody(), client.sendEmailReq(email).getBody());
+        assertEquals(emailServiceMock.sendEmailReq(email), client.sendEmailReq(email));
     }
 
- */
 }
