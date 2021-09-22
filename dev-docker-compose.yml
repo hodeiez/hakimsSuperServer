@@ -1,0 +1,31 @@
+version: '3.1'
+
+services:
+  hakimsuperserver:
+    image: hodeidocker/backend2hakimssuperserver:v1
+    ports:
+      - 8080:8080
+    depends_on:
+      - my-sql
+    environment:
+      SPRING_HIBERNATE_DDL:
+      SPRING_HIBERNATE_DIALECT:
+      SPRING_DATABASE_NAME: #Mysql database
+      SPRING_DATABASE_USERNAME: #root
+      SPRING_DATABASE_PASSWORD: #password
+      SECURITY_SECRET_KEY:
+      SECURITY_SECRET_ALGORITHM:
+      SUPER_SECRET_SIGNUP_TOKEN:
+      SUPER_SECURITY_SERVICE_ADDRESS: #local + port
+      SUPER_EMAIL_SERVICE_ADDRESS: #local + port
+      MYSQL_HOST: my-sql
+      SPRING_PROFILES_ACTIVE: dev
+  my-sql:
+    image: mysql
+    ports:
+      - 3308:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: #Mysql database
+     # MYSQL_PASSWORD: password
+
